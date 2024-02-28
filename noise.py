@@ -1,0 +1,127 @@
+import numpy as np
+import matplotlib.pyplot as plt
+import os
+import logging
+import time
+
+os.makedirs('logs', exist_ok=True)
+logging.basicConfig(filename='logs/noise.log', level=logging.INFO, filemode='w',
+                    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+
+def generate_matrix_A(M, N, mu_A, sigma_A):
+    """Generate the measurement matrix A with normalized columns."""
+    A = mu_A + sigma_A * np.random.randn(M, N)
+    A /= np.linalg.norm(A, axis=0, keepdims=True)
+    return A
+
+def generate_sparse_x(N, support_length):
+    """Generate a sparse vector x with given support length."""
+    support_indices = np.random.choice(N, support_length, replace=False)
+    sp1_length = np.random.randint(1, len(support_indices) + 1)
+    sp_values = np.concatenate([
+        -10 + 9 * np.random.rand(sp1_length),
+        1 + 9 * np.random.rand(len(support_indices) - sp1_length)
+    ])
+    x = np.zeros(N)
+    x[support_indices] = np.random.permutation(sp_values)
+    return x
+
+def generate_noise(M, n_sigma):
+    """Generate noise vector n."""
+    return n_sigma * np.random.randn(M, 1)
+
+def omp_with_known_sparsity(A, y, x, noisy_residue_limit, max_iterations):
+    """OMP algorithm for the sparsity known case."""
+    N = len(x)
+    x_rec = np.zeros(N)
+    A_new = np.empty((A.shape[0], 0))
+    residual = y.copy()
+    selected_indices = []
+
+    while np.max(np.abs(residual)) > noisy_residue_limit and len(selected_indices) < np.count_nonzero(x) and len(selected_indices) <= max_iterations:
+        proj = A.T @ residual
+        new_idx = np.argmax(np.abs(proj))
+        selected_indices.append(new_idx)
+        A_new = np.c_[A_new, A[:, new_idx]]
+        x_est = np.linalg.pinv(A_new) @ y
+        residual = y - A_new @ x_est
+
+    x_rec[selected_indices] = x_est.flatten()
+    return np.linalg.norm(x - x_rec) / np.linalg.norm(x)
+
+def omp_with_unknown_sparsity(A, y, n_norm, max_iterations):
+    """OMP algorithm for the sparsity unknown case."""
+    N = A.shape[1]
+    x_rec = np.zeros(N)
+    A_new = np.empty((A.shape[0], 0))
+    residual = y.copy()
+    selected_indices = []
+
+    while np.max(np.abs(residual)) > n_norm and len(selected_indices) <= max_iterations:
+        proj = A.T @ residual
+        new_idx = np.argmax(np.abs(proj))
+        selected_indices.append(new_idx)
+        A_new = np.c_[A_new, A[:, new_idx]]
+        x_est = np.linalg.pinv(A_new) @ y
+        residual = y - A_new @ x_est
+
+    x_rec[selected_indices] = x_est.flatten()
+    return np.linalg.norm(y - A_new @ x_est) / np.linalg.norm(y)
+
+# Set up directories
+img_folder = 'img'
+os.makedirs(img_folder, exist_ok=True)
+
+# Main experimental setup
+n_iter = 20
+N_set = [20, 50, 100]
+mu_A = 0.4
+sigma_A = 1
+residue_limit = 1e-6
+noisy_residue_limit = residue_limit * 100
+success_limit = 0.001
+n_sigma_set = [1e-3, 0.1]
+sparsity_flag_set = [0, 1]  # 0 for known sparsity, 1 for unknown sparsity
+
+for n_sigma in n_sigma_set:
+    for N in N_set:
+        M_lim = int(np.ceil(0.75 * N))
+        smax = int(np.floor(N / 2))
+        
+        for sparsity_flag in sparsity_flag_set:
+
+            start_time = time.time()
+
+            norm_error_noisy = np.zeros((M_lim, smax))
+            esr_noisy = np.zeros((M_lim, smax))
+
+            for M in range(1, M_lim + 1):
+                for support_length in range(1, smax + 1):
+                    for _ in range(n_iter):
+                        A = generate_matrix_A(M, N, mu_A, sigma_A)
+                        x = generate_sparse_x(N, support_length)
+                        n = generate_noise(M, n_sigma)
+                        y = A @ x[:, np.newaxis] + n
+
+                        if sparsity_flag == 0:  # Sparsity known
+                            error = omp_with_known_sparsity(A, y, x, noisy_residue_limit, 100)
+                        else:  # Sparsity unknown
+                            n_norm = np.linalg.norm(n)
+                            error = omp_with_unknown_sparsity(A, y, n_norm, 100)
+
+                        norm_error_noisy[M-1, support_length-1] += error / n_iter
+                        esr_noisy[M-1, support_length-1] += (error <= success_limit) / n_iter
+
+            # Plotting and saving results
+            for data, title in zip([esr_noisy, norm_error_noisy], ['ESR', 'Average Normalized Error']):
+                plt.figure()
+                plt.imshow(data, extent=[1, smax, 1, M_lim], aspect='auto', origin='lower', cmap='gray')
+                plt.colorbar()
+                plt.title(f'{title} - Noisy case - N={N} - Sigma={n_sigma} - Sparsity flag={sparsity_flag}')
+                plt.xlabel('Sparsity Level')
+                plt.ylabel('M (Measurements)')
+                plt.savefig(f'{img_folder}/{title.replace(" ", "_")}_N={N}_Sigma={n_sigma}_Flag={sparsity_flag}.png')
+                plt.close()
+            
+            end_time = time.time()
+            logging.info(f'Elapsed time for N={N}, Sigma={n_sigma}, Sparsity flag={sparsity_flag}: {end_time - start_time}')
