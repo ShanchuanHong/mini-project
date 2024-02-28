@@ -61,7 +61,7 @@ sigma_A = 1
 residue_limit = 1e-6
 success_limit = 0.001
 
-logging.info(f"")
+logging.info(f"Starting noiseless case with {n_iter} iterations for each N in {N_set}")
 
 for num_fig, N in enumerate(N_set, 1):
     M_lim = int(np.ceil(0.75 * N))

@@ -5,7 +5,7 @@ import logging
 import time
 
 os.makedirs('logs', exist_ok=True)
-logging.basicConfig(filename='logs/noise.log', level=logging.INFO, filemode='w',
+logging.basicConfig(filename='logs/noise.log', level=logging.INFO, filemode='a',
                     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 
 def generate_matrix_A(M, N, mu_A, sigma_A):
@@ -82,6 +82,8 @@ noisy_residue_limit = residue_limit * 100
 success_limit = 0.001
 n_sigma_set = [1e-3, 0.1]
 sparsity_flag_set = [0, 1]  # 0 for known sparsity, 1 for unknown sparsity
+
+logging.info(f"Starting noisy case with {n_iter} iterations for each N in {N_set}")
 
 for n_sigma in n_sigma_set:
     for N in N_set:
