@@ -9,7 +9,7 @@ os.makedirs('logs', exist_ok=True)
 logging.basicConfig(filename='logs/noiseless.log', level=logging.INFO, filemode='a',
                     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 # Ensure the img directory exists
-img_folder = 'img'
+img_folder = 'img//noiseless'
 os.makedirs(img_folder, exist_ok=True)
 
 def generate_matrix_A(M, N, mu_A, sigma_A):

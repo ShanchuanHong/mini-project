@@ -69,7 +69,7 @@ def omp_with_unknown_sparsity(A, y, n_norm, max_iterations):
     return np.linalg.norm(y - A_new @ x_est) / np.linalg.norm(y)
 
 # Set up directories
-img_folder = 'img'
+img_folder = 'img//noise'
 os.makedirs(img_folder, exist_ok=True)
 
 # Main experimental setup
@@ -82,6 +82,10 @@ noisy_residue_limit = residue_limit * 100
 success_limit = 0.001
 n_sigma_set = [1e-3, 0.1]
 sparsity_flag_set = [0, 1]  # 0 for known sparsity, 1 for unknown sparsity
+sparsity_flag_map = {0: 'Known', 1: 'Unknown'}
+
+for sparsity_flag in sparsity_flag_set:
+    os.makedirs(f'{img_folder}/{sparsity_flag_map[sparsity_flag]}', exist_ok=True)
 
 logging.info(f"Starting noisy case with {n_iter} iterations for each N in {N_set}")
 
@@ -119,11 +123,11 @@ for n_sigma in n_sigma_set:
                 plt.figure()
                 plt.imshow(data, extent=[1, smax, 1, M_lim], aspect='auto', origin='lower', cmap='gray')
                 plt.colorbar()
-                plt.title(f'{title} - Noisy case - N={N} - Sigma={n_sigma} - Sparsity flag={sparsity_flag}')
+                plt.title(f'{title} - Noisy case - N={N} - Sigma={n_sigma} - Sparsity flag={sparsity_flag_map[sparsity_flag]}')
                 plt.xlabel('Sparsity Level')
                 plt.ylabel('M (Measurements)')
-                plt.savefig(f'{img_folder}/{title.replace(" ", "_")}_N={N}_Sigma={n_sigma}_Flag={sparsity_flag}.png')
+                plt.savefig(f'{img_folder}/{sparsity_flag_map[sparsity_flag]}/{title.replace(" ", "_")}_N={N}_Sigma={n_sigma}_Flag={sparsity_flag_map[sparsity_flag]}.png')
                 plt.close()
             
             end_time = time.time()
-            logging.info(f'Elapsed time for N={N}, Sigma={n_sigma}, Sparsity flag={sparsity_flag}: {end_time - start_time}')
+            logging.info(f'Elapsed time for N={N}, Sigma={n_sigma}, Sparsity flag={sparsity_flag_map[sparsity_flag]}: {end_time - start_time}')
