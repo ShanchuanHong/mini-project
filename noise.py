@@ -75,7 +75,7 @@ os.makedirs(img_folder, exist_ok=True)
 # Main experimental setup
 n_iter = 20
 N_set = [20, 50, 100]
-mu_A = 0.4
+mu_A = 0
 sigma_A = 1
 residue_limit = 1e-6
 noisy_residue_limit = residue_limit * 100

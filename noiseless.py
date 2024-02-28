@@ -6,7 +6,7 @@ import time
 import logging
 
 os.makedirs('logs', exist_ok=True)
-logging.basicConfig(filename='logs/noiseless.log', level=logging.INFO, filemode='w',
+logging.basicConfig(filename='logs/noiseless.log', level=logging.INFO, filemode='a',
                     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 # Ensure the img directory exists
 img_folder = 'img'
@@ -56,10 +56,12 @@ def plot_results(data, title, xlabel, ylabel, fig_num):
 # Main experimental setup
 n_iter = 2000
 N_set = [20, 50, 100]
-mu_A = 0.4
+mu_A = 0
 sigma_A = 1
 residue_limit = 1e-6
 success_limit = 0.001
+
+logging.info(f"")
 
 for num_fig, N in enumerate(N_set, 1):
     M_lim = int(np.ceil(0.75 * N))
