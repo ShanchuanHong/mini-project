@@ -8,6 +8,7 @@ os.makedirs('logs', exist_ok=True)
 logging.basicConfig(filename='logs/noise.log', level=logging.INFO, filemode='a',
                     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 
+
 def generate_matrix_A(M, N, mu_A, sigma_A):
     """Generate the measurement matrix A with normalized columns."""
     A = mu_A + sigma_A * np.random.randn(M, N)
@@ -56,21 +57,28 @@ def omp_with_unknown_sparsity(A, y, n_norm, max_iterations):
     A_new = np.empty((A.shape[0], 0))
     residual = y.copy()
     selected_indices = []
+    x_est = np.zeros((0, 1))  # Initialize x_est to ensure it has a value
 
-    while np.max(np.abs(residual)) > n_norm and len(selected_indices) <= max_iterations:
+    while np.max(np.abs(residual)) > n_norm and len(selected_indices) < max_iterations:
         proj = A.T @ residual
         new_idx = np.argmax(np.abs(proj))
         selected_indices.append(new_idx)
         A_new = np.c_[A_new, A[:, new_idx]]
-        x_est = np.linalg.pinv(A_new) @ y
-        residual = y - A_new @ x_est
+        if A_new.shape[1] > 0:  # Ensure A_new is not empty
+            x_est = np.linalg.pinv(A_new) @ y
+            residual = y - A_new @ x_est
 
-    x_rec[selected_indices] = x_est.flatten()
-    return np.linalg.norm(y - A_new @ x_est) / np.linalg.norm(y)
+    if len(selected_indices) > 0:  # Check to prevent index error if selected_indices is empty
+        x_rec[selected_indices] = x_est.flatten()
+    return np.linalg.norm(y - A_new @ x_est) / np.linalg.norm(y) if A_new.size else 0
+
 
 # Set up directories
 img_folder = 'img//noise'
 os.makedirs(img_folder, exist_ok=True)
+
+# Set up Seed
+np.random.seed(7)
 
 # Main experimental setup
 n_iter = 20
