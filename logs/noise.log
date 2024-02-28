@@ -1,0 +1,14 @@
+
+2024-02-27 22:31:09,439 - root - INFO - Starting noisy case with 20 iterations for each N in [20, 50, 100]
+2024-02-27 22:31:10,762 - root - INFO - Elapsed time for N=20, Sigma=0.001, Sparsity flag=Known: 1.3237330913543701
+2024-02-27 22:31:12,283 - root - INFO - Elapsed time for N=20, Sigma=0.001, Sparsity flag=Unknown: 1.5196542739868164
+2024-02-27 22:31:33,385 - root - INFO - Elapsed time for N=50, Sigma=0.001, Sparsity flag=Known: 21.101675510406494
+2024-02-27 22:32:10,765 - root - INFO - Elapsed time for N=50, Sigma=0.001, Sparsity flag=Unknown: 37.38071942329407
+2024-02-27 22:39:24,155 - root - INFO - Elapsed time for N=100, Sigma=0.001, Sparsity flag=Known: 433.38971638679504
+2024-02-27 22:50:47,914 - root - INFO - Elapsed time for N=100, Sigma=0.001, Sparsity flag=Unknown: 683.7586877346039
+2024-02-27 22:50:48,971 - root - INFO - Elapsed time for N=20, Sigma=0.1, Sparsity flag=Known: 1.0564453601837158
+2024-02-27 22:50:50,141 - root - INFO - Elapsed time for N=20, Sigma=0.1, Sparsity flag=Unknown: 1.1696100234985352
+2024-02-27 22:51:09,908 - root - INFO - Elapsed time for N=50, Sigma=0.1, Sparsity flag=Known: 19.766740798950195
+2024-02-27 22:51:30,287 - root - INFO - Elapsed time for N=50, Sigma=0.1, Sparsity flag=Unknown: 20.379711151123047
+2024-02-27 22:57:56,014 - root - INFO - Elapsed time for N=100, Sigma=0.1, Sparsity flag=Known: 385.7270529270172
+2024-02-27 23:03:58,761 - root - INFO - Elapsed time for N=100, Sigma=0.1, Sparsity flag=Unknown: 362.7459554672241
