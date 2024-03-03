@@ -75,9 +75,9 @@ for num_fig, N in enumerate(N_set, 1):
                 A = generate_matrix_A(M, N, mu_A, sigma_A)
                 x = generate_sparse_x(N, support_length)
                 y = A @ x
-                x_rec = omp_algorithm(A, y, N, residue_limit)
+                x_est = omp_algorithm(A, y, N, residue_limit)
                 
-                error = np.linalg.norm(x - x_rec) / np.linalg.norm(x)
+                error = np.linalg.norm(x - x_est) / np.linalg.norm(x)
                 norm_error_noiseless[M-1, support_length-1] += error / n_iter
                 if error <= success_limit:
                     esr_noiseless[M-1, support_length-1] += 1 / n_iter
