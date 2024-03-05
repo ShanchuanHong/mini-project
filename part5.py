@@ -24,11 +24,11 @@ def omp_algorithm(A, y, residue_limit):
     return x_rec
 
 # Load the MAT file
-data = loadmat('Pr5\\Data\\Data.mat')  # Update with the path to your .mat file
+data = loadmat('Pr5\\Data\\Data.mat')  
 A1, A2, A3 = data['A1'], data['A2'], data['A3']
 Y1, Y2, Y3 = data['y1'], data['y2'], data['y3']
 
-# Define the tolerance for stopping the OMP algorithm (this might need adjustment)
+
 tolerance = 1e-6
 new_shape = (160, 90)
 
@@ -46,8 +46,8 @@ X3_rec_ls = (pinv(A3) @ Y3).reshape(new_shape).T
 
 
 # Directory paths for saving images
-ls_dir = 'img/part5/ls/'  # Least Squares directory
-omp_dir = 'img/part5/omp/'  # OMP directory
+ls_dir = 'img/part5/ls/'  
+omp_dir = 'img/part5/omp/'  
 
 # Save the recovered images from Least Squares
 plt.figure()
