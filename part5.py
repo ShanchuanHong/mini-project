@@ -2,6 +2,10 @@ import numpy as np
 from scipy.io import loadmat
 from scipy.linalg import pinv
 import matplotlib.pyplot as plt
+import logging
+
+# Set the logging level
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 
 
 def omp_algorithm(A, y, residue_limit):
@@ -33,21 +37,28 @@ tolerance = 1e-6
 new_shape = (160, 90)
 
 # Recover X from Y1, Y2, Y3 using OMP
+logging.info('Recovering X from Y1, Y2, Y3 using OMP')
 X1_rec = omp_algorithm(A1, Y1, tolerance).reshape(new_shape).T
 X2_rec = omp_algorithm(A2, Y2, tolerance).reshape(new_shape).T
 X3_rec = omp_algorithm(A3, Y3, tolerance).reshape(new_shape).T
+logging.info('Recovery complete')
 
 # Least Squares Solution
-X1_rec_ls = (pinv(A1) @ Y1).reshape(new_shape).T  
-X2_rec_ls = (pinv(A2) @ Y2).reshape(new_shape).T 
-X3_rec_ls = (pinv(A3) @ Y3).reshape(new_shape).T
-
+def least_squares(A, y):
+    """Compute the least squares solution to a linear matrix equation."""
+    x, _, _, _ = np.linalg.lstsq(A, y, rcond=None)
+    return x
+logging.info('Recovering X from Y1, Y2, Y3 using Least Squares')
+X1_rec_ls = least_squares(A1,Y1).reshape(new_shape).T  
+X2_rec_ls = least_squares(A2,Y2).reshape(new_shape).T
+X3_rec_ls = least_squares(A3,Y3).reshape(new_shape).T
+logging.info('Recovery complete')
 
 
 
 # Directory paths for saving images
-ls_dir = 'img/part5/ls/'  
-omp_dir = 'img/part5/omp/'  
+ls_dir = 'img//part5//ls//'  
+omp_dir = 'img//part5//omp//'  
 
 # Save the recovered images from Least Squares
 plt.figure()
@@ -86,3 +97,5 @@ plt.imshow(X3_rec, cmap='gray')
 plt.title('Recovered Image from Y3')
 plt.savefig(omp_dir + 'X3_rec_omp.png')
 plt.close()
+
+logging.info('Images saved successfully')
