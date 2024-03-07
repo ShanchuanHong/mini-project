@@ -6,8 +6,10 @@
 
 ## How to Run
 
+**IMPORTANT**: Please run all command under ``source_code`` directory!
+
 ```
-Structure of the Project:
+Structure of the Project under source_code/:
 img/
 ----noise/
 --------Known/
@@ -26,7 +28,7 @@ part6.py
 
 ### Part3 and Part4
 
-under the root path, make sure the directories for img/ and logs/ are created.
+under the ``source_code`` path, make sure the directories for img/ and logs/ are created.
 
 ```img/
 img/
@@ -46,7 +48,7 @@ python noise.py # for part4
 
 ### Part5
 
-make sure the directories for img//part5//ls// and img//part5//omp// are existed:
+under the ``source_code`` path, make sure the directories for img//part5//ls// and img//part5//omp// are existed:
 
 ```
 img/
@@ -64,6 +66,8 @@ python part5.py
 ```
 
 ### Part6
+
+under the ``source_code`` path
 
 under line 8 of ```part6.py```, change the folder of files for part6:
 
@@ -156,19 +160,19 @@ Conversely, the Average Normalized Error plots provide insight into the precisio
 ##### Normalized Error:
 ###### N=20
 
-![Average_Normalized_Error_N=20_Sigma=0.001_Flag=Known](F:\A_File\UCSD\24Winter\ECE 269\mini-project\img\noise\Known\Average_Normalized_Error_N=20_Sigma=0.001_Flag=Known.png)
+![Average_Normalized_Error_N=20_Sigma=0.001_Flag=Known](img\noise\Known\Average_Normalized_Error_N=20_Sigma=0.001_Flag=Known.png)
 
-![Average_Normalized_Error_N=20_Sigma=0.1_Flag=Known](F:\A_File\UCSD\24Winter\ECE 269\mini-project\img\noise\Known\Average_Normalized_Error_N=20_Sigma=0.1_Flag=Known.png)
+![Average_Normalized_Error_N=20_Sigma=0.1_Flag=Known](img\noise\Known\Average_Normalized_Error_N=20_Sigma=0.1_Flag=Known.png)
 ###### N=50
 
-![Average_Normalized_Error_N=50_Sigma=0.001_Flag=Known](F:\A_File\UCSD\24Winter\ECE 269\mini-project\img\noise\Known\Average_Normalized_Error_N=50_Sigma=0.001_Flag=Known.png)
+![Average_Normalized_Error_N=50_Sigma=0.001_Flag=Known](img\noise\Known\Average_Normalized_Error_N=50_Sigma=0.001_Flag=Known.png)
 
-![Average_Normalized_Error_N=50_Sigma=0.1_Flag=Known](F:\A_File\UCSD\24Winter\ECE 269\mini-project\img\noise\Known\Average_Normalized_Error_N=50_Sigma=0.1_Flag=Known.png)
+![Average_Normalized_Error_N=50_Sigma=0.1_Flag=Known](img\noise\Known\Average_Normalized_Error_N=50_Sigma=0.1_Flag=Known.png)
 ###### N=100
 
-![Average_Normalized_Error_N=100_Sigma=0.001_Flag=Known](F:\A_File\UCSD\24Winter\ECE 269\mini-project\img\noise\Known\Average_Normalized_Error_N=100_Sigma=0.001_Flag=Known.png)
+![Average_Normalized_Error_N=100_Sigma=0.001_Flag=Known](img\noise\Known\Average_Normalized_Error_N=100_Sigma=0.001_Flag=Known.png)
 
-![Average_Normalized_Error_N=100_Sigma=0.1_Flag=Known](F:\A_File\UCSD\24Winter\ECE 269\mini-project\img\noise\Known\Average_Normalized_Error_N=100_Sigma=0.1_Flag=Known.png)
+![Average_Normalized_Error_N=100_Sigma=0.1_Flag=Known](img\noise\Known\Average_Normalized_Error_N=100_Sigma=0.1_Flag=Known.png)
 
 #### Comments
 
@@ -186,42 +190,42 @@ In essence, while OMP is quite effective in low noise scenarios, the transition 
 
 ###### N=20
 
-![ESR_N=20_Sigma=0.001_Flag=Unknown](F:\A_File\UCSD\24Winter\ECE 269\mini-project\img\noise\Unknown\ESR_N=20_Sigma=0.001_Flag=Unknown.png)
+![ESR_N=20_Sigma=0.001_Flag=Unknown](img\noise\Unknown\ESR_N=20_Sigma=0.001_Flag=Unknown.png)
 
-![ESR_N=20_Sigma=0.1_Flag=Unknown](F:\A_File\UCSD\24Winter\ECE 269\mini-project\img\noise\Unknown\ESR_N=20_Sigma=0.1_Flag=Unknown.png)
+![ESR_N=20_Sigma=0.1_Flag=Unknown](img\noise\Unknown\ESR_N=20_Sigma=0.1_Flag=Unknown.png)
 
 ###### N=50
 
-![ESR_N=50_Sigma=0.001_Flag=Unknown](F:\A_File\UCSD\24Winter\ECE 269\mini-project\img\noise\Unknown\ESR_N=50_Sigma=0.001_Flag=Unknown.png)
+![ESR_N=50_Sigma=0.001_Flag=Unknown](img\noise\Unknown\ESR_N=50_Sigma=0.001_Flag=Unknown.png)
 
-![ESR_N=50_Sigma=0.1_Flag=Unknown](F:\A_File\UCSD\24Winter\ECE 269\mini-project\img\noise\Unknown\ESR_N=50_Sigma=0.1_Flag=Unknown.png)
+![ESR_N=50_Sigma=0.1_Flag=Unknown](img\noise\Unknown\ESR_N=50_Sigma=0.1_Flag=Unknown.png)
 
 
 ###### N=100
 
-![ESR_N=100_Sigma=0.001_Flag=Unknown](F:\A_File\UCSD\24Winter\ECE 269\mini-project\img\noise\Unknown\ESR_N=100_Sigma=0.001_Flag=Unknown.png)
+![ESR_N=100_Sigma=0.001_Flag=Unknown](img\noise\Unknown\ESR_N=100_Sigma=0.001_Flag=Unknown.png)
 
-![ESR_N=100_Sigma=0.1_Flag=Unknown](F:\A_File\UCSD\24Winter\ECE 269\mini-project\img\noise\Unknown\ESR_N=100_Sigma=0.1_Flag=Unknown.png)
+![ESR_N=100_Sigma=0.1_Flag=Unknown](img\noise\Unknown\ESR_N=100_Sigma=0.1_Flag=Unknown.png)
 
 ##### Normalized Error:
 ###### N=20
 
-![Average_Normalized_Error_N=20_Sigma=0.001_Flag=Unknown](F:\A_File\UCSD\24Winter\ECE 269\mini-project\img\noise\Unknown\Average_Normalized_Error_N=20_Sigma=0.001_Flag=Unknown.png)
+![Average_Normalized_Error_N=20_Sigma=0.001_Flag=Unknown](img\noise\Unknown\Average_Normalized_Error_N=20_Sigma=0.001_Flag=Unknown.png)
 
-![Average_Normalized_Error_N=20_Sigma=0.1_Flag=Unknown](F:\A_File\UCSD\24Winter\ECE 269\mini-project\img\noise\Unknown\Average_Normalized_Error_N=20_Sigma=0.1_Flag=Unknown.png)
+![Average_Normalized_Error_N=20_Sigma=0.1_Flag=Unknown](img\noise\Unknown\Average_Normalized_Error_N=20_Sigma=0.1_Flag=Unknown.png)
 
 ###### N=50
 
-![Average_Normalized_Error_N=50_Sigma=0.001_Flag=Unknown](F:\A_File\UCSD\24Winter\ECE 269\mini-project\img\noise\Unknown\Average_Normalized_Error_N=50_Sigma=0.001_Flag=Unknown.png)
+![Average_Normalized_Error_N=50_Sigma=0.001_Flag=Unknown](img\noise\Unknown\Average_Normalized_Error_N=50_Sigma=0.001_Flag=Unknown.png)
 
-![Average_Normalized_Error_N=50_Sigma=0.1_Flag=Unknown](F:\A_File\UCSD\24Winter\ECE 269\mini-project\img\noise\Unknown\Average_Normalized_Error_N=50_Sigma=0.1_Flag=Unknown.png)
+![Average_Normalized_Error_N=50_Sigma=0.1_Flag=Unknown](img\noise\Unknown\Average_Normalized_Error_N=50_Sigma=0.1_Flag=Unknown.png)
 
 
 ###### N=100
 
-![Average_Normalized_Error_N=100_Sigma=0.001_Flag=Unknown](F:\A_File\UCSD\24Winter\ECE 269\mini-project\img\noise\Unknown\Average_Normalized_Error_N=100_Sigma=0.001_Flag=Unknown.png)
+![Average_Normalized_Error_N=100_Sigma=0.001_Flag=Unknown](img\noise\Unknown\Average_Normalized_Error_N=100_Sigma=0.001_Flag=Unknown.png)
 
-![Average_Normalized_Error_N=100_Sigma=0.1_Flag=Unknown](F:\A_File\UCSD\24Winter\ECE 269\mini-project\img\noise\Unknown\Average_Normalized_Error_N=100_Sigma=0.1_Flag=Unknown.png)
+![Average_Normalized_Error_N=100_Sigma=0.1_Flag=Unknown](img\noise\Unknown\Average_Normalized_Error_N=100_Sigma=0.1_Flag=Unknown.png)
 
 ### Comments
 
